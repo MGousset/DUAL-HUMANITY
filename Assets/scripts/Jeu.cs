@@ -65,9 +65,9 @@ public class Jeu : MonoBehaviour
 
     void Update()
     {
-        if (rotation)
+        if (rotation) //Si animation en cours
         {
-            if (!Cartes.rotation){
+            if (!Cartes.rotation){ //Detection de fin d'animation pour continuer
                 rotation = false;
                 Debug.Log("carte parties");
                 if (!lose && !win)
@@ -161,8 +161,10 @@ public class Jeu : MonoBehaviour
 
                 case TouchPhase.Moved:
                     posCarte = carte.gameObject.transform.position;
-                    posCarte.x += touch.deltaPosition.x;
 
+                    float delatX = touch.deltaPosition.x;
+
+                    posCarte.x += delatX;
                     if (posCarte.x <= XMIN)
                     {
                         carte.activeTextLeft();
@@ -178,7 +180,7 @@ public class Jeu : MonoBehaviour
                         carte.desactiveText();
                     }
 
-                    carte.gameObject.transform.Rotate(0, 0, touch.deltaPosition.x / 40);
+                    carte.gameObject.transform.Rotate(0, 0, delatX / 40);
                     carte.gameObject.transform.position = posCarte;
                     break;
 
@@ -196,7 +198,7 @@ public class Jeu : MonoBehaviour
                     {
                         posCarte.x = 1080 / 2;
                         carte.gameObject.transform.position = posCarte;
-                        carte.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        carte.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
                     }
                     break;
             }
