@@ -24,13 +24,13 @@ public class Cartes : MonoBehaviour
         {
             Vector3 posCarte = gameObject.transform.position;
             posCarte.x += dir*vX;
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, (1080 / 2 - posCarte.x) / 40);
             gameObject.transform.position = posCarte;
+            gameObject.transform.Rotate(0, 0, dir*vX / 40);
             //Debug.Log(posCarte.x);
             yield return null;
         }
-        rotation = false;
         gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        rotation = false;
         gameObject.SetActive(false);
         yield return null;
     }
