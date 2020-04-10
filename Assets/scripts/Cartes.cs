@@ -69,12 +69,19 @@ public class Cartes : MonoBehaviour
         action.text = "";
     }
 
-    public virtual void retourne()
+    IEnumerator returnAnimation()
     {
         Debug.Log("retournerment");
-        gameObject.SetActive(true);
         animator.SetTrigger("selected");
         animator.ResetTrigger("reset");
+        yield return new WaitForSeconds(1f);
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public virtual void retourne()
+    {
+        gameObject.SetActive(true);
+        StartCoroutine(returnAnimation());
     }
 
 }
