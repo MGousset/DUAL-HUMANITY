@@ -9,6 +9,7 @@ public class Cartes : MonoBehaviour
     public Animator animator;
 
     public Jauges jauge1, jauge2, jauge3, jauge4;
+    public GameObject dos;
     public int vX;
 
     protected string description, actionRight, actionLeft;
@@ -18,7 +19,8 @@ public class Cartes : MonoBehaviour
 
     IEnumerator Animation(int dir)
     {
-        for(int x = 0; x < 1500/vX ; x++)
+        desactiveText();
+        for (int x = 0; x < 1500/vX ; x++)
         {
             Vector3 posCarte = gameObject.transform.position;
             posCarte.x += dir*vX;
@@ -27,12 +29,9 @@ public class Cartes : MonoBehaviour
             //Debug.Log(posCarte.x);
             yield return null;
         }
-        deactiveText();
-        animator.SetTrigger("reset");
-        animator.ResetTrigger("selected");
-        gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
-        gameObject.SetActive(false);
         rotation = false;
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        gameObject.SetActive(false);
         yield return null;
     }
 
@@ -64,24 +63,9 @@ public class Cartes : MonoBehaviour
         action.transform.position = new Vector2(540, 860);
     }
 
-    public void deactiveText()
+    public void desactiveText()
     {
         action.text = "";
-    }
-
-    IEnumerator returnAnimation()
-    {
-        Debug.Log("retournerment");
-        animator.SetTrigger("selected");
-        animator.ResetTrigger("reset");
-        yield return new WaitForSeconds(1f);
-        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-    }
-
-    public virtual void retourne()
-    {
-        gameObject.SetActive(true);
-        StartCoroutine(returnAnimation());
     }
 
 }

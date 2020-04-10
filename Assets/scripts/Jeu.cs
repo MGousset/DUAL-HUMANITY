@@ -44,7 +44,7 @@ public class Jeu : MonoBehaviour
             Vector2 posCarte = carte.gameObject.transform.position;
             posCarte.x = Screen.width / 2;
             carte.gameObject.transform.position = posCarte;
-            carte.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            //carte.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         chooseCarte();
         /*
@@ -98,7 +98,7 @@ public class Jeu : MonoBehaviour
         i = indices[i];
 
         carte = cartes[i];
-        carte.retourne();
+        carte.gameObject.SetActive(true);
 
         ans += 10;
         messageAnnees.text = "An " + ans;
@@ -177,7 +177,7 @@ public class Jeu : MonoBehaviour
 
                     else
                     {
-                        carte.deactiveText();
+                        carte.desactiveText();
                     }
 
                     carte.gameObject.transform.rotation = Quaternion.Euler(0, 0, (1080 / 2 - posCarte.x) / 40);
