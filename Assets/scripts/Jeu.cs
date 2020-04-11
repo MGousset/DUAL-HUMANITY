@@ -8,13 +8,13 @@ public class Jeu : MonoBehaviour
 {
     public GameObject game, Win, Lose;
     public List<Cartes> cartes;
-    public TextMeshProUGUI messageWin, messageLose, messageAnnees;
+    public TextMeshProUGUI messageAnnees;
     private List<int> indices = new List<int>();
     private Cartes carte;
     
     private static int XMIN, XMAX;
     private int n, i, ans;
-    
+    static float rotaZ;
     private bool running, rotation;
 
     public static bool lose, win;
@@ -40,10 +40,10 @@ public class Jeu : MonoBehaviour
         
         foreach (Cartes carte in cartes)
         {
+            carte.dos.SetActive(true);
             carte.gameObject.SetActive(false);
-            Vector2 posCarte = carte.gameObject.transform.position;
-            posCarte.x = Screen.width / 2;
-            carte.gameObject.transform.position = posCarte;
+            carte.dos.SetActive(true);
+            carte.gameObject.transform.SetPositionAndRotation(new Vector2(Screen.width / 2, Screen.height / 2), new Quaternion(0, 1, 0, 0));
         }
         chooseCarte();
         /*
@@ -63,24 +63,30 @@ public class Jeu : MonoBehaviour
         */
     }
 
+
     void Update()
     {
         if (rotation)
         {
             if (!Cartes.rotation){
                 rotation = false;
+                indices.Remove(i);
+                n -= 1;
                 Debug.Log("carte parties");
-                if (!lose && !win)
+                if (n <= 0)
                 {
+                    victory();
+                }
+                
+                else if (!lose)
+                {
+
                     chooseCarte();
                 }
+
                 else if (lose)
                 {
                     end();
-                }
-                else if (win)
-                {
-                    victory();
                 }
             }
         }
@@ -97,7 +103,7 @@ public class Jeu : MonoBehaviour
         i = indices[i];
 
         carte = cartes[i];
-        carte.gameObject.SetActive(true);
+        carte.retourner();
         ans += 10;
         messageAnnees.text = "An " + ans;
     }
@@ -106,33 +112,19 @@ public class Jeu : MonoBehaviour
     {
         rotation = true;
         carte.switchLeft();
-        indices.Remove(i);
-        n -= 1;
-
-        if (n <= 0)
-        {
-            win = true;
-        }
     }
 
     public void right()
     {
         rotation = true;
         carte.switchRight();
-        indices.Remove(i);
-        n -= 1;
-
-        if (n <= 0)
-        {
-            win = true;
-        }
     }
 
     public void end()
     {
         Debug.Log("LOSE");
         game.SetActive(false);
-        messageLose.text = "Tu as tenu " + ans + " annnées";
+        //messageLose.text = "Tu as tenu " + ans + " annnées";
         Lose.SetActive(true);
         running = false;
     }
@@ -142,7 +134,7 @@ public class Jeu : MonoBehaviour
         ans += 10;
         Debug.Log("WIN");
         game.SetActive(false);
-        messageWin.text = "Tu as tenu " + ans + " annnées";
+        //messageWin.text = "Tu as tenu " + ans + " annnées";
         Win.SetActive(true);
         running = false;
     }
@@ -153,7 +145,6 @@ public class Jeu : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
             Vector2 posCarte;
-
             switch (touch.phase)
             {
                 case TouchPhase.Began:
@@ -163,6 +154,11 @@ public class Jeu : MonoBehaviour
                     posCarte = carte.gameObject.transform.position;
                     posCarte.x += touch.deltaPosition.x;
 
+<<<<<<< Updated upstream
+=======
+                    posCarte.x += touch.deltaPosition.x;
+
+>>>>>>> Stashed changes
                     if (posCarte.x <= XMIN)
                     {
                         carte.activeTextLeft();
@@ -177,9 +173,14 @@ public class Jeu : MonoBehaviour
                     {
                         carte.desactiveText();
                     }
+<<<<<<< Updated upstream
 
                     carte.gameObject.transform.Rotate(0, 0, touch.deltaPosition.x / 40);
+=======
+>>>>>>> Stashed changes
                     carte.gameObject.transform.position = posCarte;
+                    carte.gameObject.transform.rotation = Quaternion.Euler(0, 0, (1080 / 2 - posCarte.x) / 40);
+                    //carte.gameObject.transform.SetPositionAndRotation(posCarte, new Quaternion(0, 0, (1080 / 2 - posCarte.x) / 40, 0));
                     break;
 
                 case TouchPhase.Ended:
@@ -195,8 +196,12 @@ public class Jeu : MonoBehaviour
                     else
                     {
                         posCarte.x = 1080 / 2;
+<<<<<<< Updated upstream
                         carte.gameObject.transform.position = posCarte;
                         carte.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+=======
+                        carte.gameObject.transform.SetPositionAndRotation(posCarte, new Quaternion(0, 0, 0, 0));
+>>>>>>> Stashed changes
                     }
                     break;
             }

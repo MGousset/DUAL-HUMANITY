@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Jauges : MonoBehaviour
 {
-    public static int HEIGHT = 200, YMAX, YMIN, X0;
+    static public int HEIGHT = 200, YMAX, YMIN, X0;
     public Jeu jeu;
     protected int y;
 
@@ -12,8 +12,8 @@ public class Jauges : MonoBehaviour
     public virtual void Start()
     {
         X0 = Screen.width / 4;
-        YMAX = (int)(0);
-        YMIN = (int)(- HEIGHT);
+        YMAX = 0;
+        YMIN = - HEIGHT;
         y = (YMAX + YMIN) / 2; 
     }
 

@@ -10,41 +10,67 @@ public class Cartes : MonoBehaviour
 
     public Jauges jauge1, jauge2, jauge3, jauge4;
     public GameObject dos;
-    public int vX;
 
     protected string description, actionRight, actionLeft;
     private bool finAnimation;
 
     public static bool rotation = false;
 
-    IEnumerator Animation(int dir)
+    IEnumerator switchAnimation(int dir)
     {
         desactiveText();
-        for (int x = 0; x < 1500/vX ; x++)
+        Vector3 posCarte = gameObject.transform.position;
+        int l = Screen.width;
+        while (-l/2 < posCarte.x && posCarte.x < 3*l/2)
         {
-            Vector3 posCarte = gameObject.transform.position;
-            posCarte.x += dir*vX;
+            posCarte.x += 2500*dir* Time.fixedDeltaTime;
+
             gameObject.transform.position = posCarte;
-            gameObject.transform.Rotate(0, 0, dir*vX / 40);
-            //Debug.Log(posCarte.x);
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, (1080/2 - posCarte.x) / 40);
             yield return null;
         }
-        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-        rotation = false;
         gameObject.SetActive(false);
+        rotation = false;
         yield return null;
     }
 
     public virtual void switchRight()
     {
         rotation = true;
-        StartCoroutine(Animation(1));
+        StartCoroutine(switchAnimation(1));
     }
 
     public virtual void switchLeft()
     {
         rotation = true;
-        StartCoroutine(Animation(-1));
+        StartCoroutine(switchAnimation(-1));
+    }
+
+
+    IEnumerator returnAnimation()
+    {
+        Debug.Log("retournement");
+        for (int i= 180; i > 0; i -= 5)
+        {
+            //Debug.Log(Time.deltaTime);
+            gameObject.transform.rotation = Quaternion.Euler(0, i, 0);
+
+            if (gameObject.transform.rotation.y < 0.725)
+            {
+                dos.SetActive(false);
+            }
+            yield return null;
+        }
+        //dos.SetActive(false);
+        gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+        //Debug.Log(gameObject.transform.rotation.y);
+        yield return null;
+    }
+
+    public void retourner()
+    {
+        gameObject.SetActive(true);
+        StartCoroutine(returnAnimation());
     }
 
     public void activeTextRight()
