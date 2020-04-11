@@ -151,19 +151,9 @@ public class Jeu : MonoBehaviour
                     break;
 
                 case TouchPhase.Moved:
-                    posCarte = carte.gameObject.transform.position;
-
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
+                    posCarte = gameObject.transform.position;
                     posCarte.x += touch.deltaPosition.x;
 
->>>>>>> Stashed changes
-=======
-                    float delatX = touch.deltaPosition.x;
-
-                    posCarte.x += delatX;
->>>>>>> animation
                     if (posCarte.x <= XMIN)
                     {
                         carte.activeTextLeft();
@@ -178,18 +168,10 @@ public class Jeu : MonoBehaviour
                     {
                         carte.desactiveText();
                     }
-<<<<<<< Updated upstream
-
-<<<<<<< HEAD
                     carte.gameObject.transform.Rotate(0, 0, touch.deltaPosition.x / 40);
-=======
->>>>>>> Stashed changes
-=======
-                    carte.gameObject.transform.Rotate(0, 0, delatX / 40);
->>>>>>> animation
+
                     carte.gameObject.transform.position = posCarte;
                     carte.gameObject.transform.rotation = Quaternion.Euler(0, 0, (1080 / 2 - posCarte.x) / 40);
-                    //carte.gameObject.transform.SetPositionAndRotation(posCarte, new Quaternion(0, 0, (1080 / 2 - posCarte.x) / 40, 0));
                     break;
 
                 case TouchPhase.Ended:
@@ -205,16 +187,7 @@ public class Jeu : MonoBehaviour
                     else
                     {
                         posCarte.x = 1080 / 2;
-<<<<<<< Updated upstream
-                        carte.gameObject.transform.position = posCarte;
-<<<<<<< HEAD
-                        carte.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-=======
                         carte.gameObject.transform.SetPositionAndRotation(posCarte, new Quaternion(0, 0, 0, 0));
->>>>>>> Stashed changes
-=======
-                        carte.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
->>>>>>> animation
                     }
                     break;
             }
