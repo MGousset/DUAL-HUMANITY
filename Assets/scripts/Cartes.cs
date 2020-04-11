@@ -50,7 +50,7 @@ public class Cartes : MonoBehaviour
     IEnumerator returnAnimation()
     {
         Debug.Log("retournement");
-        for (int i= 180; i > 0; i -= 5)
+        for (int i= 180; i >= 0; i -= 5)
         {
             //Debug.Log(Time.deltaTime);
             gameObject.transform.rotation = Quaternion.Euler(0, i, 0);
@@ -61,9 +61,7 @@ public class Cartes : MonoBehaviour
             }
             yield return null;
         }
-        //dos.SetActive(false);
         gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
-        //Debug.Log(gameObject.transform.rotation.y);
         yield return null;
     }
 
