@@ -144,16 +144,15 @@ public class Jeu : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            Vector2 posCarte = gameObject.transform.position;
+            Vector2 posCarte = carte.gameObject.transform.position;
             switch (touch.phase)
             {
                 case TouchPhase.Began:
                     break;
 
                 case TouchPhase.Moved:
-                    
+                     
                     posCarte.x += touch.deltaPosition.x;
-
                     if (posCarte.x <= XMIN)
                     {
                         carte.activeTextLeft();
@@ -168,9 +167,8 @@ public class Jeu : MonoBehaviour
                     {
                         carte.desactiveText();
                     }
-                    carte.gameObject.transform.Translate(touch.deltaPosition.x, 0, 0);
-                    //= posCarte;
-                    //carte.gameObject.transform.rotation = Quaternion.Euler(0, 0, (1080 / 2 - posCarte.x) / 40);
+                    carte.gameObject.transform.position = posCarte;
+                    carte.gameObject.transform.rotation = Quaternion.Euler(0, 0, (1080 / 2 - posCarte.x) / 40);
                     break;
 
                 case TouchPhase.Ended:
