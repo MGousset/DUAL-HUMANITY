@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Jeu : MonoBehaviour
 {
     public GameObject game, Win, Lose;
     public List<Cartes> cartes;
     public TextMeshProUGUI messageAnnees;
-    private List<int> indices = new List<int>();
+
+    private List<int> indices;
     private Cartes carte;
-    
+    private string usedCards;
+
     private static int XMIN, XMAX;
     private int n, i, ans;
     static float rotaZ;
@@ -19,11 +22,35 @@ public class Jeu : MonoBehaviour
 
     public static bool lose, win;
 
+    public void Restart()
+    {
+        PlayerPrefs.SetInt("currentCard", -1);
+        PlayerPrefs.SetString("usedCards", "");
+        PlayerPrefs.SetInt("annees", 0);
+        Jauges.restart();
+        Start();
+    }
+
+    public void menu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void quit()
+    {
+        Application.Quit();
+    }
+
     public void Start()
     {
+        ans = PlayerPrefs.GetInt("annees");
+        messageAnnees.text = "An " + ans;
+
+        usedCards = PlayerPrefs.GetString("usedCards");
+        int k = PlayerPrefs.GetInt("currentCard");
+
         XMIN = 30 * 1080 / 100;
         XMAX = 70 * 1080 / 100;
-        ans = 0;
         win = false;
         lose = false;
 
@@ -31,13 +58,25 @@ public class Jeu : MonoBehaviour
         Win.SetActive(false);
         Lose.SetActive(false);
         game.SetActive(true);
-
         n = cartes.Count;
+
+        indices = new List<int>();
         for (int i = 0; i < n; ++i)
         {
             indices.Add(i);
         }
-        
+        ;
+        if (usedCards != "")
+        {
+            string[] numbersOfUsedCards = Regex.Split(usedCards, ",");
+            foreach (string c in numbersOfUsedCards)
+            {
+                int.TryParse(c, out i);
+                //Debug.Log(i);
+                indices.Remove(i);
+            }
+        }
+        n = indices.Count;
         foreach (Cartes carte in cartes)
         {
             carte.dos.SetActive(true);
@@ -45,22 +84,17 @@ public class Jeu : MonoBehaviour
             carte.dos.SetActive(true);
             carte.gameObject.transform.SetPositionAndRotation(new Vector2(Screen.width / 2, Screen.height / 2), new Quaternion(0, 1, 0, 0));
         }
-        chooseCarte();
-        /*
-        string str = "";
-        str += 1.ToString();
-        PlayerPrefs.SetString("codeCarte", str);
-        string txt = PlayerPrefs.GetString("codeCarte");
-        Debug.Log(txt);
-        string[] numbers = Regex.Split(txt," ");
-        foreach (string c in numbers)
+        
+        //Debug.Log(k);
+        if (k != -1)
         {
-            int i;
-            int.TryParse(c, out i);
-            Debug.Log(i);
-            cartes[i].gameObject.SetActive(true);
+            chooseCarte(k);
         }
-        */
+        else
+        {
+            chooseCarte();
+        }
+        
     }
 
 
@@ -68,14 +102,24 @@ public class Jeu : MonoBehaviour
     {
         if (rotation) //Si animation en cours
         {
-            if (!Cartes.rotation){ //Detection de fin d'animation pour continuer
+            if (!carte.rotation){ //Detection de fin d'animation pour continuer
                 rotation = false;
+                if (carte.unique)
+                {
+                    if (usedCards != "")
+                    {
+                        usedCards += ",";
+                    }
+                    usedCards += i.ToString();
+                    PlayerPrefs.SetString("usedCards", usedCards);
+                }
                 indices.Remove(i);
                 n -= 1;
                 Debug.Log("carte parties");
                 if (n <= 0)
                 {
-                    victory();
+                    ans += 10;
+                    end(Win, "WIN");
                 }
                 
                 else if (!lose)
@@ -86,7 +130,7 @@ public class Jeu : MonoBehaviour
 
                 else if (lose)
                 {
-                    end();
+                    end(Lose, "LOSE");
                 }
             }
         }
@@ -96,15 +140,24 @@ public class Jeu : MonoBehaviour
         }
     }
 
+    private void chooseCarte(int k)
+    {
+        i = k;
+        carte = cartes[i];
+        carte.retourner();
+
+        Debug.Log("chosing card");
+        //Debug.Log(i);
+    }
 
     private void chooseCarte()
     {
         i = Random.Range(0, n);
         i = indices[i];
-
-        carte = cartes[i];
-        carte.retourner();
+        PlayerPrefs.SetInt("currentCard", i);
+        chooseCarte(i);
         ans += 10;
+        PlayerPrefs.SetInt("annees", ans);
         messageAnnees.text = "An " + ans;
     }
 
@@ -120,22 +173,16 @@ public class Jeu : MonoBehaviour
         carte.switchRight();
     }
 
-    public void end()
+    public void end(GameObject panel, string txt)
     {
-        Debug.Log("LOSE");
-        game.SetActive(false);
-        //messageLose.text = "Tu as tenu " + ans + " annnées";
-        Lose.SetActive(true);
-        running = false;
-    }
+        PlayerPrefs.SetInt("currentCard", -1);
+        PlayerPrefs.SetString("usedCards", "");
+        PlayerPrefs.SetInt("annees", 0);
+        Jauges.restart();
 
-    public void victory()
-    {
-        ans += 10;
-        Debug.Log("WIN");
         game.SetActive(false);
-        //messageWin.text = "Tu as tenu " + ans + " annnées";
-        Win.SetActive(true);
+        //messageLose.text = txt;
+        panel.SetActive(true);
         running = false;
     }
 

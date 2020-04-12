@@ -6,7 +6,6 @@ using TMPro;
 public class Cartes : MonoBehaviour
 {
     public TextMeshProUGUI descrip, action;
-    public Animator animator;
 
     public Jauges jauge1, jauge2, jauge3, jauge4;
     public GameObject dos;
@@ -14,7 +13,8 @@ public class Cartes : MonoBehaviour
     protected string description, actionRight, actionLeft;
     private bool finAnimation;
 
-    public static bool rotation = false;
+    public bool rotation = false;
+    public bool unique = true;
 
     IEnumerator switchAnimation(int dir)
     {
