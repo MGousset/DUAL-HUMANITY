@@ -86,13 +86,9 @@ public class Jauges : MonoBehaviour
 
     public virtual void full()
     {
-        Debug.Log("Jauge pleine");
-        Jeu.lose = true;
     }
 
     public virtual void empty()
     {
-        Debug.Log("Jauge vide");
-        Jeu.lose = true;
     }
 }

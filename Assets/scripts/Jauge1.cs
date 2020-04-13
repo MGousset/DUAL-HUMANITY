@@ -20,13 +20,13 @@ public class Jauge1 : Jauges
 
     public override void full()
     {
-        base.empty();
+        Jeu.loseMsg = "Jauge1 pleine";
         Debug.Log("Jauge1 pleine");
     }
 
     public override void empty()
     {
-        base.empty();
+        Jeu.loseMsg = "Jauge1 pleine";
         Debug.Log("Jauge1 vide");
     }
 }

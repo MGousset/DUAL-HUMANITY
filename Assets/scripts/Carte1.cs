@@ -17,7 +17,7 @@ public class Carte1 : Cartes
     {
         base.switchRight();
         jauge1.move(30);
-        jauge3.move(-40);
+        jauge3.move(-110);
     }
 
     public override void switchLeft()
