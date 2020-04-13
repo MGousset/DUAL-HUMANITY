@@ -22,12 +22,11 @@ public class Menu : MonoBehaviour
     {
         ans = PlayerPrefs.GetInt("ans");
         anneesPassees = PlayerPrefs.GetInt("anneesPassees");
-        dimention = PlayerPrefs.GetInt("dimention") + 1;
+        dimention = PlayerPrefs.GetInt("dimension") + 1;
 
         
         ansTxt.text = " + " + ans;
-        yield return null;
-        dimensionTxt.text = "Dimention C " + dimention.ToString();
+        
         yield return new WaitForSecondsRealtime(0.1f);
 
         for (int i = 1; i <= ans; i++)
@@ -37,9 +36,11 @@ public class Menu : MonoBehaviour
             anneesPasseesTxt.text = "An " + anneesPassees.ToString();
             yield return new WaitForSecondsRealtime(0.1f);
         }
+        dimensionTxt.text = "Dimension C " + dimention.ToString();
+
         ansTxt.text = "";
         PlayerPrefs.SetInt("anneesPassees", anneesPassees);
-        PlayerPrefs.SetInt("dimention", dimention);
+        PlayerPrefs.SetInt("dimension", dimention);
         PlayerPrefs.SetInt("ans", 0);
     }
 
@@ -109,7 +110,7 @@ public class Menu : MonoBehaviour
     public void Start()
     {
         deltaT = Time.fixedDeltaTime;
-        //PlayerPrefs.SetInt("dimention", 0);
+        //PlayerPrefs.SetInt("dimension", 0);
         //PlayerPrefs.SetInt("anneesPassees", 0);
 
         menu.SetActive(false);

@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 175584571}
   - component: {fileID: 175584570}
   m_Layer: 5
-  m_Name: dimentionTxt
+  m_Name: dimensionTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Dimention C-0 '
+  m_text: 'Dimension C-0 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: b92e162e7fd2fae408fb80db7b47fb46, type: 2}
