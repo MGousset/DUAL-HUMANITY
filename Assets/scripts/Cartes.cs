@@ -49,7 +49,7 @@ public class Cartes : MonoBehaviour
 
     IEnumerator returnAnimation()
     {
-        Debug.Log("retournement");
+        //Debug.Log("retournement");
         for (int i= 180; i >= 0; i -= 5)
         {
             //Debug.Log(Time.deltaTime);

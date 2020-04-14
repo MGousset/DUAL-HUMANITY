@@ -9,8 +9,7 @@ public class Jeu : MonoBehaviour
 {
     public GameObject game, Win;
     public List<Cartes> cartes;
-    public TextMeshProUGUI cartefin; 
-    public TextMeshProUGUI messageAnnees;
+    public TextMeshProUGUI ansTxt;
 
     private List<int> indices;
     private Cartes carte;
@@ -35,7 +34,7 @@ public class Jeu : MonoBehaviour
 
     public void menu()
     {
-        Debug.Log("menu");
+        //Debug.Log("menu");
         SceneManager.LoadScene(0);
     }
 
@@ -47,7 +46,7 @@ public class Jeu : MonoBehaviour
     public void Start()
     {
         ans = PlayerPrefs.GetInt("ans");
-        messageAnnees.text = "An " + ans;
+        ansTxt.text = "An " + ans;
 
         usedCards = PlayerPrefs.GetString("usedCards");
         int k = PlayerPrefs.GetInt("currentCard");
@@ -80,7 +79,7 @@ public class Jeu : MonoBehaviour
             }
         }
         n = indices.Count;
-        Debug.Log(n);
+        //Debug.Log(n);
         foreach (Cartes carte in cartes)
         {
             carte.dos.SetActive(true);
@@ -133,8 +132,22 @@ public class Jeu : MonoBehaviour
                 
                 else
                 {
-
-                    chooseCarte();
+                    if (loseMsg != "")
+                    {
+                        PlayerPrefs.SetInt("currentCard", 0);
+                        PlayerPrefs.SetInt("lose", 1);
+                        chooseCarte(0);
+                        //Debug.Log(loseMsg);
+                        carte.descrip.text = loseMsg;
+                        //carte.descrip.text = loseMsg;
+                    }
+                    else
+                    {
+                        chooseCarte();
+                        ans += 10;
+                        PlayerPrefs.SetInt("ans", ans);
+                        ansTxt.text = "An " + ans;
+                    }
                 }
             }
         }
@@ -150,31 +163,16 @@ public class Jeu : MonoBehaviour
         carte = cartes[i];
         carte.retourner();
 
-        Debug.Log("chosing card");
+        //Debug.Log("chosing card");
         //Debug.Log(i);
     }
 
     private void chooseCarte()
     {
-        if (loseMsg != "")
-        {
-            PlayerPrefs.SetInt("currentCard", 0);
-            PlayerPrefs.SetInt("lose", 1);
-            chooseCarte(0);
-            Debug.Log(loseMsg);
-            carte.descrip.text = loseMsg;
-            //carte.descrip.text = loseMsg;
-        }
-        else
-        {
-            i = Random.Range(1, n);
-            i = indices[i];
-            PlayerPrefs.SetInt("currentCard", i);
-            chooseCarte(i);
-            ans += 10;
-            PlayerPrefs.SetInt("ans", ans);
-            messageAnnees.text = "An " + ans;
-        }
+        i = Random.Range(1, n);
+        i = indices[i];
+        PlayerPrefs.SetInt("currentCard", i);
+        chooseCarte(i);
     }
 
     public void left()
@@ -193,7 +191,7 @@ public class Jeu : MonoBehaviour
     {
         PlayerPrefs.SetInt("currentCard", -1);
         PlayerPrefs.SetString("usedCards", "");
-        PlayerPrefs.SetInt("annees", 0);
+        //PlayerPrefs.SetInt("annees", 0);
         Jauges.restart();
 
         game.SetActive(false);

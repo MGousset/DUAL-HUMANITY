@@ -30,7 +30,7 @@ public class Jauges : MonoBehaviour
 
     IEnumerator clignotementAnimation(bool up)
     {
-        Debug.Log("clignotement");
+        //Debug.Log("clignotement");
         if (up)
         {
             img.color = new Color(0, 1, 0, 1);

@@ -8,38 +8,38 @@ using TMPro;
 public class Menu : MonoBehaviour
 {
     public GameObject planete;
-    public GameObject menu, chargement, space;
+    public GameObject menu, chargement, space, mainPanel;
     public Slider slider;
     public TextMeshProUGUI pourcentageTxt, ansTxt, anneesPasseesTxt, dimensionTxt, clickTxt;
     public Image img;
 
     private float deltaT;
     private int anneesPassees, ans, dimension;
+    private bool waiting;
 
     public void placePlanete(int x, int y)
     {
         space.transform.localScale = new Vector3(1f, 1f);
         space.transform.position = new Vector2(x, y);
         planete.transform.position = new Vector2(1f * Screen.width / 2, 1f * Screen.height / 2);
-        planete.transform.Rotate(0, 0, Random.value * 180);
+        planete.transform.Rotate(0, 0, Random.value * 360);
     }
 
     IEnumerator texteAnimation()
     {
-        dimension += 1;
         for (int i = 1; i <= ans; i++)
         {
             ansTxt.text = " + " + (ans - i).ToString();
             anneesPassees += 1;
             anneesPasseesTxt.text = "An " + anneesPassees.ToString();
-            yield return new WaitForSecondsRealtime(0.05f);
+            yield return new WaitForSecondsRealtime(0.1f);
         }
         dimensionTxt.text = "Dimension C " + dimension.ToString();
 
         ansTxt.text = "";
         PlayerPrefs.SetInt("anneesPassees", anneesPassees);
         PlayerPrefs.SetInt("dimension", dimension);
-        PlayerPrefs.SetInt("ans", 0);
+        ans = 0;
     }
 
     IEnumerator sortieDimentionAnimation(int x, int y)
@@ -53,13 +53,14 @@ public class Menu : MonoBehaviour
         Vector2 posSpace = space.transform.position;
 
 
-        for (int i = 0; i < 150; i++)
+        for (int i = 0; i < 75; i++)
         {
-            planete.transform.localScale -= new Vector3(1f / 150, 1f / 150);
+            planete.transform.localScale -= new Vector3(1f / 75, 1f / 75);
             yield return null;
         }
+        yield return new WaitForSecondsRealtime(0.2f);
         dimensionTxt.gameObject.SetActive(false);
-        StartCoroutine(texteAnimation());
+        
         for (int i = 1; i < 100; i++)
         {
             space.transform.localScale += new Vector3(1f * i / 100, 1f * i / 100);
@@ -72,6 +73,7 @@ public class Menu : MonoBehaviour
         }
         placePlanete(x, y);
         StartCoroutine(entreeDimentionAimation(x, y));
+        StartCoroutine(texteAnimation());
     }
 
     IEnumerator entreeDimentionAimation(int x, int y)
@@ -84,7 +86,7 @@ public class Menu : MonoBehaviour
         space.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
         Vector2 posSpace = space.transform.position;
         yield return null;
-
+        
         for (int i = 0; i < 150; i++)
         {
 
@@ -105,15 +107,18 @@ public class Menu : MonoBehaviour
 
     IEnumerator wait()
     {
+        Debug.Log(PlayerPrefs.GetInt("ans"));
         Time.fixedDeltaTime = deltaT;
+        waiting = true;
         img.gameObject.SetActive(false);
-        while (true)
+        clickTxt.gameObject.SetActive(true);
+        while (waiting)
         {
-            clickTxt.gameObject.SetActive(true);
-            yield return new WaitForSecondsRealtime(1f);
+            clickTxt.text = "Click to play";
+            yield return new WaitForSecondsRealtime(0.5f);
 
-            clickTxt.gameObject.SetActive(false);
-            yield return new WaitForSecondsRealtime(1f);
+            clickTxt.text = "";
+            yield return new WaitForSecondsRealtime(0.5f);
         }
     }
 
@@ -124,7 +129,7 @@ public class Menu : MonoBehaviour
         deltaT = Time.fixedDeltaTime;
         //PlayerPrefs.SetInt("dimension", 0);
         //PlayerPrefs.SetInt("anneesPassees", 0);
-
+        mainPanel.SetActive(true);
         menu.SetActive(false);
         chargement.SetActive(false);
         dimensionTxt.gameObject.SetActive(false);
@@ -137,21 +142,22 @@ public class Menu : MonoBehaviour
         dimensionTxt.text = "Dimension C " + dimension.ToString();
         ans = PlayerPrefs.GetInt("ans");
 
-        Debug.Log(PlayerPrefs.GetInt("lose"));
+        //Debug.Log(PlayerPrefs.GetInt("lose"));
         if (PlayerPrefs.GetInt("lose") == 1)
         {
             PlayerPrefs.SetInt("currentCard", -1);
             PlayerPrefs.SetString("usedCards", "");
+            PlayerPrefs.SetInt("ans", 0);
             Jauges.restart();
-
+            dimension += 1;
             ansTxt.text = " + " + ans.ToString();
             StartCoroutine(sortieDimentionAnimation(Random.Range(-30, 50)*100, Random.Range(-30, 50) * 100));
-            Debug.Log("changeDim");
+            //Debug.Log("changeDim");
             PlayerPrefs.SetInt("lose", 0);
         }
         else
         {
-            Debug.Log("restaureDim");
+            //Debug.Log("restaureDim");
             StartCoroutine(entreeDimentionAimation(PlayerPrefs.GetInt("xPlanete"), PlayerPrefs.GetInt("yPlanete")));
         }
     }
@@ -163,13 +169,14 @@ public class Menu : MonoBehaviour
 
     public void continuer()
     {
+        waiting = false;
         StopCoroutine(wait());
+        clickTxt.gameObject.SetActive(false);
+        
         Time.fixedDeltaTime = deltaT;
         img.gameObject.SetActive(true);
         //menu.SetActive(false);
-        clickTxt.gameObject.SetActive(false);
-        anneesPasseesTxt.text = "";
-        dimensionTxt.text = "";
+        mainPanel.SetActive(false);
         StartCoroutine(loading());
     }
 
@@ -178,13 +185,25 @@ public class Menu : MonoBehaviour
         continuer();
     }
 
+    public void resetGame()
+    {
+        PlayerPrefs.SetInt("xPlanete", Random.Range(-30, 50) * 100);
+        PlayerPrefs.SetInt("yPlanete", Random.Range(-30, 50) * 100);
+        PlayerPrefs.SetInt("dimension", 0);
+        PlayerPrefs.SetInt("lose", 0);
+        PlayerPrefs.SetInt("anneesPassees", 0);
+        PlayerPrefs.SetInt("ans", 0);
+        //reset all succes too
+        Start();
+    }
+
     IEnumerator loading()
     {
         for (int i = 1; i < 100; i++)
         {
             space.transform.localScale += new Vector3(1f * i / 10, 1f * i / 10);
             planete.transform.position = new Vector2(1f * Screen.width / 2, 1f * Screen.height / 2);
-            img.color = new Color(0, 0, 0, 1f * i / 99);
+            img.color = new Color(0, 0, 0, 2f * i / 99);
             yield return null;
         }
         chargement.SetActive(true);
