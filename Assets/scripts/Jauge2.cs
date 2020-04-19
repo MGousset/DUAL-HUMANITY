@@ -15,7 +15,7 @@ public class Jauge2 : Jauges
     public override void move(int y)
     {
         base.move(y);
-        PlayerPrefs.SetInt("jauge2", PlayerPrefs.GetInt("jauge4") + y);
+        PlayerPrefs.SetInt("jauge2", PlayerPrefs.GetInt("jauge2") + y);
     }
 
     public override void full()
