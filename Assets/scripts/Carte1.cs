@@ -6,7 +6,7 @@ public class Carte1 : Cartes
 {
     public void Start()
     {
-        description = "je viens d’avoir un super deal pour pouvoir vendre nos ressources à une planète voisine, combien devrions nous en vendre ??";
+        description = "Je viens d’avoir un super deal pour pouvoir vendre nos ressources à une planète voisine, combien devrions nous en vendre ??";
         actionLeft = "moitié";
         actionRight = "tout";
         
@@ -16,15 +16,14 @@ public class Carte1 : Cartes
     public override void switchRight()
     {
         base.switchRight();
-        jauge1.move(30);
-        jauge3.move(-110);
+        jauge1.move(-30);
+        jauge3.move(60);
     }
 
     public override void switchLeft()
     {
         base.switchLeft();
-        jauge3.move(40);
-        jauge1.move(-30);
+        jauge3.move(30);
     }
 }
 

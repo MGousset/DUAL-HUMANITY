@@ -16,14 +16,14 @@ public class Carte2 : Cartes
     public override void switchRight()
     {
         base.switchRight();
-        jauge4.move(60);
-        jauge2.move(-50);
+        jauge1.move(-30);
     }
 
     public override void switchLeft()
     {
         base.switchLeft();
-        jauge2.move(50);
-        jauge4.move(-60);
+        jauge1.move(30);
+        jauge2.move(-30);
+        jauge3.move(30);
     }
 }
