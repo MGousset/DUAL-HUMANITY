@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Cartes : MonoBehaviour
 {
@@ -9,12 +10,47 @@ public class Cartes : MonoBehaviour
 
     public Jauges jauge1, jauge2, jauge3, jauge4;
     public GameObject dos;
+    public Image personnage;
+    public bool rotation = false;
+    public bool unique = true;
 
     protected string description, actionRight, actionLeft;
     private bool finAnimation;
+    private int jauge1left, jauge2left, jauge3left, jauge4left,
+        jauge1right, jauge2right, jauge3right, jauge4right;
 
-    public bool rotation = false;
-    public bool unique = true;
+    public virtual void Start()
+    {
+        Vector2 scal = personnage.transform.localScale;
+        scal.y *= (Screen.height * 1440f) / (2960f * Screen.width);
+        descrip.transform.Translate(0, (1 - scal.y) * 340, 0);
+        if (scal.y < 0.87)
+        {
+            scal.y = 0.835f;
+        }
+        personnage.transform.localScale = scal;
+        
+        descrip.transform.localScale = scal;
+
+    }
+
+    public void cartes(int j1l, int j2l, int j3l, int j4l, int j1r, int j2r, int j3r, int j4r,
+        string desc, string aLeft, string aRight, bool u, Sprite perso)
+    {
+        jauge1left = j1l;
+        jauge2left = j2l;
+        jauge3left = j3l;
+        jauge4left = j4l;
+        jauge1right = j1r;
+        jauge2right = j2r;
+        jauge3right = j3r;
+        jauge4right = j4r;
+        actionRight = aRight;
+        actionLeft = aLeft;
+        unique = u;
+        personnage.sprite = perso;
+        descrip.text = desc;
+    }
 
     IEnumerator switchAnimation(int dir)
     {
@@ -34,14 +70,23 @@ public class Cartes : MonoBehaviour
         yield return null;
     }
 
+
     public virtual void switchRight()
     {
+        jauge1.move(jauge1right);
+        jauge2.move(jauge2right);
+        jauge3.move(jauge3right);
+        jauge4.move(jauge4right);
         rotation = true;
         StartCoroutine(switchAnimation(1));
     }
 
     public virtual void switchLeft()
     {
+        jauge1.move(jauge1left);
+        jauge2.move(jauge2left);
+        jauge3.move(jauge3left);
+        jauge4.move(jauge4left);
         rotation = true;
         StartCoroutine(switchAnimation(-1));
     }

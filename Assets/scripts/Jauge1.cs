@@ -26,7 +26,7 @@ public class Jauge1 : Jauges
 
     public override void empty()
     {
-        Jeu.loseMsg = "Jauge1 pleine";
+        Jeu.loseMsg = "Jauge1 vide";
         Debug.Log("Jauge1 vide");
     }
 }

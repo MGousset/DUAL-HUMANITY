@@ -6,8 +6,9 @@ public class CarteFin : Cartes
 {
     public Jeu jeu;
 
-    public void Start()
+    public override void Start()
     {
+        base.Start();
         actionLeft = "";
         actionRight = "";
 
