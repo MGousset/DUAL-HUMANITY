@@ -23,13 +23,12 @@ public class Cartes : MonoBehaviour
     {
         Vector2 scal = personnage.transform.localScale;
         scal.y *= (Screen.height * 1440f) / (2960f * Screen.width);
-        descrip.transform.Translate(0, (1 - scal.y) * 340, 0);
+        descrip.transform.Translate(0, (1 - scal.y) * 340f, 0);
         if (scal.y < 0.87)
         {
             scal.y = 0.835f;
         }
         personnage.transform.localScale = scal;
-        
         descrip.transform.localScale = scal;
 
     }
