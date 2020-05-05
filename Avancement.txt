@@ -1,0 +1,4 @@
+Séance 5 mai :
+Premier compte rendu oral avec le professeur. 
+Problème lié aux classes filles de Carte: Chaque classe fille correspond à une carte ---> redondance de code.
+Solution : On part de la classe mère et en paramètre on précise les jauges modifiées par le choix de la carte. 
