@@ -22,8 +22,8 @@ public class Jauges : MonoBehaviour
     public virtual void Start()
     {
         X0 = Screen.width / 4;
-        YMAX = 0;
-        YMIN = - HEIGHT;
+        YMAX = -14;
+        YMIN = - 186;
         y = (YMAX + YMIN) / 2;
         img.color = new Color(1, 1, 1, 0);
     }
@@ -68,18 +68,26 @@ public class Jauges : MonoBehaviour
         Vector2 pos = gameObject.transform.localPosition;
         pos.y += y;
         gameObject.transform.localPosition = pos;
-        StartCoroutine(clignotementAnimation(y > 0));
-        test((int)pos.y);
+        if (y != 0)
+        {
+            StartCoroutine(clignotementAnimation(y > 0));
+        }
+        test();
     }
 
-    public void test(int y)
+    public void test()
     {
-        if (y <= YMIN)
+        Vector2 pos = gameObject.transform.localPosition;
+        if (pos.y <= YMIN)
         {
+            pos.y = YMIN;
+            gameObject.transform.localPosition = pos;
             empty();
         }
-        else if (y >= YMAX)
+        else if (pos.y >= YMAX)
         {
+            pos.y = YMAX;
+            gameObject.transform.localPosition = pos;
             full();
         }
     }
