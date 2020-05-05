@@ -7,6 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class Jeu : MonoBehaviour
 {
+    public Sprite militairevert;
+    public Sprite militairebeige;
+    public Sprite banquier;
+    public Sprite politicien;
+    public Sprite etudiante;
+    public Sprite scientifique;
+    public Sprite religieux;
+
     public GameObject game, Win;
     public List<Cartes> cartes;
     public TextMeshProUGUI ansTxt;
@@ -45,6 +53,26 @@ public class Jeu : MonoBehaviour
 
     public void Start()
     {
+        cartes[1].cartes(0, 0, 30, 0, -30, 0, 60, 0,
+        "Je viens d’avoir un super deal pour pouvoir vendre nos ressources à une planète voisine, combien devrions nous en vendre ??",
+        "tout", "moitié", true, banquier);
+
+        cartes[2].cartes(30, -30, 30, 0, -30, 0, 0, 0,
+        "Arrêtons de manger de la viande dans tous les pays du monde !",
+        "oui", "non", true, etudiante);
+
+        cartes[3].cartes(30, 0, 0, 0, -30, 0, -60, -30,
+        "Nous avons retrouvé les vestiges de la tombe de notre prophète à Mulhouse, nous comptons érigé une jante alluminium géante en son honneur",
+        "C'est une très mauvaise idée, contentez vous de prier", "Faites donc, c'est mon prophète après tout", true, religieux);
+
+        cartes[4].cartes(0, 60, 0, 0, -30, 0, 60, 0,
+        "Jon nous rapporte que l’armée verte aurait caché des ogives nucléaires, nous ne savons pas ce qu’ils ont l’intention de faire avec, il faut intervenir !",
+        "Evitez tout conflit", "Soit ne vous laissez pas distancer", true, militairevert);
+
+        cartes[5].cartes(0, 0, 30, -30, -60, -60, 60, 0,
+        "Le laboratoire du CERN veut simuler un trou noir avec son accélérateur à particule. Cela permettrait de comprendre comment fonctionne l’antimatière",
+        "Cessez vos expériences immédiatement", "Je suis curieux de voir le résultat", true, scientifique);
+
         ans = PlayerPrefs.GetInt("ans");
         ansTxt.text = "An " + ans;
 
