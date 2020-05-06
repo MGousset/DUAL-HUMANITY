@@ -56,7 +56,7 @@ public class Jeu : MonoBehaviour
         //technologie, population, nature, richesse      nature, population, richesse, technologie
         cartes[1].cartes(0, 0, 0, 30, 0, -30, 0, 60,
         "Je viens d’avoir un super deal pour pouvoir vendre nos ressources à une planète voisine, combien devrions nous en vendre ??",
-        "tout", "moitié", true, banquier);
+        "moitié", "tout", true, banquier);
 
         cartes[2].cartes(0, -30, 30, 30, 0, 0, -30, -20,
         "Arrêtons de manger de la viande dans tous les pays du monde !",
