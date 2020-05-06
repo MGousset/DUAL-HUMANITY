@@ -22,8 +22,8 @@ public class Jauges : MonoBehaviour
     public virtual void Start()
     {
         X0 = Screen.width / 4;
-        YMAX = -14;
-        YMIN = - 186;
+        YMAX = -13;
+        YMIN = - 187;
         y = (YMAX + YMIN) / 2;
         img.color = new Color(1, 1, 1, 0);
     }

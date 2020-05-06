@@ -53,23 +53,24 @@ public class Jeu : MonoBehaviour
 
     public void Start()
     {
-        cartes[1].cartes(0, 0, 30, 0, -30, 0, 60, 0,
+        //technologie, population, nature, richesse      nature, population, richesse, technologie
+        cartes[1].cartes(0, 0, 0, 30, 0, -30, 0, 60,
         "Je viens d’avoir un super deal pour pouvoir vendre nos ressources à une planète voisine, combien devrions nous en vendre ??",
         "tout", "moitié", true, banquier);
 
-        cartes[2].cartes(30, -30, 30, 0, -30, 0, 0, 0,
+        cartes[2].cartes(0, -30, 30, 30, 0, 0, -30, -20,
         "Arrêtons de manger de la viande dans tous les pays du monde !",
         "oui", "non", true, etudiante);
 
-        cartes[3].cartes(30, 0, 0, 0, -30, 0, -60, -30,
+        cartes[3].cartes(0, 0, 0, +30, -30, 0, -30, -60,
         "Nous avons retrouvé les vestiges de la tombe de notre prophète à Mulhouse, nous comptons érigé une jante alluminium géante en son honneur",
         "C'est une très mauvaise idée, contentez vous de prier", "Faites donc, c'est mon prophète après tout", true, religieux);
 
-        cartes[4].cartes(0, 60, 0, 0, -30, 0, 60, 0,
+        cartes[4].cartes(0, 60, 0, 0, 60, 0, 0, -30,
         "Jon nous rapporte que l’armée verte aurait caché des ogives nucléaires, nous ne savons pas ce qu’ils ont l’intention de faire avec, il faut intervenir !",
         "Evitez tout conflit", "Soit ne vous laissez pas distancer", true, militairevert);
 
-        cartes[5].cartes(0, 0, 30, -30, -60, -60, 60, 0,
+        cartes[5].cartes(30, 0, -30, 0, 60, -60, 0, -60,
         "Le laboratoire du CERN veut simuler un trou noir avec son accélérateur à particule. Cela permettrait de comprendre comment fonctionne l’antimatière",
         "Cessez vos expériences immédiatement", "Je suis curieux de voir le résultat", true, scientifique);
 
