@@ -27,6 +27,10 @@ public class Jeu : MonoBehaviour
     private int n, i, ans;
     static float rotaZ;
     private bool running, rotation;
+    private static int gros_chgt =40;
+    private static int petit_chgt=20;
+
+
 
     public static string loseMsg;
     public static bool win, lose;
@@ -53,26 +57,34 @@ public class Jeu : MonoBehaviour
 
     public void Start()
     {
-        //technologie, population, nature, richesse      nature, population, richesse, technologie
-        cartes[1].cartes(0, 0, 0, 30, 0, -30, 0, 60,
+        //technologie, population, nature, richesse      
+        cartes[1].cartes(0, 0, 0, petit_chgt, 0, -petit_chgt, 0, gros_chgt,
         "Je viens d’avoir un super deal pour pouvoir vendre nos ressources à une planète voisine, combien devrions nous en vendre ??",
         "moitié", "tout", true, banquier);
 
-        cartes[2].cartes(0, -30, 30, 30, 0, 0, -30, -20,
+        cartes[2].cartes(0, -petit_chgt, petit_chgt, petit_chgt, 0, 0, -petit_chgt, -petit_chgt,
         "Arrêtons de manger de la viande dans tous les pays du monde !",
         "oui", "non", true, etudiante);
 
-        cartes[3].cartes(0, 0, 0, +30, -30, 0, -30, -60,
+        cartes[3].cartes(0, 0, 0, +petit_chgt, -petit_chgt, 0, -petit_chgt, -gros_chgt,
         "Nous avons retrouvé les vestiges de la tombe de notre prophète à Mulhouse, nous comptons érigé une jante alluminium géante en son honneur",
         "C'est une très mauvaise idée, contentez vous de prier", "Faites donc, c'est mon prophète après tout", true, religieux);
 
-        cartes[4].cartes(0, 60, 0, 0, 60, 0, 0, -30,
+        cartes[4].cartes(0, gros_chgt, 0, 0, gros_chgt, 0, 0, -petit_chgt,
         "Jon nous rapporte que l’armée verte aurait caché des ogives nucléaires, nous ne savons pas ce qu’ils ont l’intention de faire avec, il faut intervenir !",
         "Evitez tout conflit", "Soit ne vous laissez pas distancer", true, militairevert);
 
-        cartes[5].cartes(30, 0, -30, 0, 60, -60, 0, -60,
+        cartes[5].cartes(petit_chgt, 0, -petit_chgt, 0, gros_chgt, -gros_chgt, 0, -gros_chgt,
         "Le laboratoire du CERN veut simuler un trou noir avec son accélérateur à particule. Cela permettrait de comprendre comment fonctionne l’antimatière",
         "Cessez vos expériences immédiatement", "Je suis curieux de voir le résultat", true, scientifique);
+        
+        cartes[6].cartes(0, petit_chgt, gros_chgt, -gros_chgt, 0, -petit_chgt, -gros_chgt, gros_chgt,
+        "Il y a eu un récent accord entre les banques et le Bresil sur la déforestation en Amazonie, il faut s'interposer !",
+        "Cette accord n'a pas lieu d'être", "L'Amazonie est assez grande pour enlever 2-3 arbres", true, etudiante , 0 , 7);
+        
+        cartes[7].cartes(0, -petit_chgt, -petit_chgt, gros_chgt, 0, 0, petit_chgt, -petit_chgt,
+        "On peut le faire de manière durable, cela impactera un peu nos résultat",
+        "Au point ou on en est, autant maximiser le profit", "Respectez un peu la nature", true, banquier);
 
         ans = PlayerPrefs.GetInt("ans");
         ansTxt.text = "An " + ans;
@@ -89,7 +101,7 @@ public class Jeu : MonoBehaviour
         running = true;
         Win.SetActive(false);
         game.SetActive(true);
-        n = cartes.Count;
+        n = cartes.Count-1;
 
         indices = new List<int>();
         for (int i = 0; i < n; ++i)
@@ -172,10 +184,20 @@ public class Jeu : MonoBehaviour
                     }
                     else
                     {
-                        chooseCarte();
+                        if (carte.suivante == 0)
+                        {
+                            chooseCarte();
+                        }
+
+                        else
+                        {
+                            chooseCarte(carte.suivante);
+                        }
                         ans += 10;
                         PlayerPrefs.SetInt("ans", ans);
                         ansTxt.text = "An " + ans;
+
+
                     }
                 }
             }

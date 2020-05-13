@@ -1,4 +1,10 @@
 Séance 5 mai :
 Premier compte rendu oral avec le professeur. 
 Problème lié aux classes filles de Carte: Chaque classe fille correspond à une carte ---> redondance de code.
-Solution : On part de la classe mère et en paramètre on précise les jauges modifiées par le choix de la carte. 
+Solution : On part de la classe mère et en paramètre on précise les jauges modifiées par le choix de la carte.
+
+Séance 13 mai : 
+Ajout des musiques et des graphismes de jauges 
+Illustration des morts technologiques et populations
+Désormais un choix fait sur une carte peut débloquer une nouvelle carte qui découle de ce choix:
+	- pour ce faire : création d'un attribut entier carte.suivante qui définit l'indice de la carte suivante

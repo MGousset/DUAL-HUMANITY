@@ -13,7 +13,9 @@ public class Cartes : MonoBehaviour
     public Image personnage;
     public bool rotation = false;
     public bool unique = true;
-
+    public int suivante = 0; //attribut pour déterminer les cartes à débloquer en fonction d'autres cartes
+    public int suivante_droite = 0;
+    public int suivante_gauche = 0;
     protected string description, actionRight, actionLeft;
     private bool finAnimation;
     private int jauge1left, jauge2left, jauge3left, jauge4left,
@@ -34,7 +36,7 @@ public class Cartes : MonoBehaviour
     }
 
     public void cartes(int j1l, int j2l, int j3l, int j4l, int j1r, int j2r, int j3r, int j4r,
-        string desc, string aLeft, string aRight, bool u, Sprite perso)
+        string desc, string aLeft, string aRight, bool u, Sprite person, int sg,int sd )
     {
         jauge1left = j1l;
         jauge2left = j2l;
@@ -47,8 +49,16 @@ public class Cartes : MonoBehaviour
         actionRight = aRight;
         actionLeft = aLeft;
         unique = u;
-        personnage.sprite = perso;
+        suivante_droite = sd;
+        suivante_gauche = sg;
+        personnage.sprite = person;
         descrip.text = desc;
+    }
+    public void cartes(int j1l, int j2l, int j3l, int j4l, int j1r, int j2r, int j3r, int j4r,
+    string desc, string aLeft, string aRight, bool u, Sprite person)
+    {
+        cartes( j1l, j2l,  j3l,  j4l,  j1r,  j2r,  j3r,  j4r,
+         desc, aLeft,  aRight,  u, person, 0, 0);
     }
 
     IEnumerator switchAnimation(int dir)
@@ -76,6 +86,7 @@ public class Cartes : MonoBehaviour
         jauge2.move(jauge2right);
         jauge3.move(jauge3right);
         jauge4.move(jauge4right);
+        suivante = suivante_droite;
         rotation = true;
         StartCoroutine(switchAnimation(1));
     }
@@ -86,6 +97,7 @@ public class Cartes : MonoBehaviour
         jauge2.move(jauge2left);
         jauge3.move(jauge3left);
         jauge4.move(jauge4left);
+        suivante = suivante_gauche;
         rotation = true;
         StartCoroutine(switchAnimation(-1));
     }
