@@ -9,6 +9,7 @@ public class Jauges : MonoBehaviour
     public Jeu jeu;
     protected int y;
     public Image img;
+
     // Start is called before the first frame update
 
     public static void restart()

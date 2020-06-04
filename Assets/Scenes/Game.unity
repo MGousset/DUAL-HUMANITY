@@ -859,7 +859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &181544788
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1804,6 +1804,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jeu: {fileID: 151383756}
   img: {fileID: 1909269255}
+  tropSous: {fileID: 21300000, guid: 1c665483362936243944ef4e4585180b, type: 3}
+  pasSous: {fileID: 21300000, guid: 31556cf1ce657044799c3247a80f2e44, type: 3}
 --- !u!1 &474717319
 GameObject:
   m_ObjectHideFlags: 0
@@ -3448,7 +3450,7 @@ MonoBehaviour:
   jauge3: {fileID: 1765366433}
   jauge4: {fileID: 460964039}
   dos: {fileID: 95180587}
-  personnage: {fileID: 0}
+  personnage: {fileID: 1452345321}
   rotation: 0
   unique: 1
   jeu: {fileID: 151383756}
@@ -3863,6 +3865,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jeu: {fileID: 151383756}
   img: {fileID: 868739933}
+  tropTechno: {fileID: 21300000, guid: 04f0742e04a41e0498209939c58b69a8, type: 3}
+  pasTechno: {fileID: 21300000, guid: 0db4e9b45b4b27940831ac85422c1d0e, type: 3}
 --- !u!1 &1005457545
 GameObject:
   m_ObjectHideFlags: 0
@@ -4376,6 +4380,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jeu: {fileID: 151383756}
   img: {fileID: 662678341}
+  tropPop: {fileID: 21300000, guid: 485e91050770db745afb54b558ab6440, type: 3}
+  pasPop: {fileID: 21300000, guid: fa98f623a222fb34cb827a890946a341, type: 3}
 --- !u!1 &1280777036
 GameObject:
   m_ObjectHideFlags: 0
@@ -6342,7 +6348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1606902455
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7076,6 +7082,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jeu: {fileID: 151383756}
   img: {fileID: 1542475910}
+  tropNature: {fileID: 21300000, guid: b004759d5b342154680e11dbc69e5c22, type: 3}
+  pasNature: {fileID: 21300000, guid: ff29406195832e44dbded4393a45fb45, type: 3}
 --- !u!1 &1777212813
 GameObject:
   m_ObjectHideFlags: 0

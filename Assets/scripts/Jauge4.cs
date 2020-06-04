@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Jauge4 : Jauges
 {
+    public Sprite tropSous;
+    public Sprite pasSous;
+
     public override void Start()
     {
         base.Start();
@@ -20,13 +23,15 @@ public class Jauge4 : Jauges
 
     public override void full()
     {
-        Jeu.loseMsg = "Jauge4 pleine";
+        Jeu.imageFin = tropSous;
+        Jeu.loseMsg = "L'hypercapitalisme a creusé les inégalités à un point tel qu'on soulèvement populaire a détruit quasiment toute forme de civilisation";
         Debug.Log("Jauge4 pleine");
     }
 
     public override void empty()
     {
-        Jeu.loseMsg = "Jauge4 vide";
+        Jeu.imageFin = pasSous;
+        Jeu.loseMsg = "Le manque d'argent a forcé les pays à s'attaquer pour se disputer les ressources essentielles entrainant le déclin de l'humanité";
         Debug.Log("Jauge4 vide");
     }
 }

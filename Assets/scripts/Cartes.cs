@@ -33,7 +33,7 @@ public class Cartes : MonoBehaviour
 
     }
 
-    public void cartes(int j1l, int j2l, int j3l, int j4l, int j1r, int j2r, int j3r, int j4r,
+    public virtual void cartes(int j1l, int j2l, int j3l, int j4l, int j1r, int j2r, int j3r, int j4r,
         string desc, string aLeft, string aRight, bool u, Sprite perso)
     {
         jauge1left = j1l;

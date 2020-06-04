@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Jauge2 : Jauges
 {
+
+    public Sprite tropPop;
+    public Sprite pasPop;
+    
     public override void Start()
     {
         base.Start();
@@ -20,13 +24,15 @@ public class Jauge2 : Jauges
 
     public override void full()
     {
-        Jeu.loseMsg = "Jauge2 pleine";
+        Jeu.loseMsg = "La terre est devenue trop peuplée, une famine globale sans précédent mis fin à la société en place";
+        Jeu.imageFin = tropPop;
         Debug.Log("Jauge2 pleine");
     }
 
     public override void empty()
     {
-        Jeu.loseMsg = "Jauge2 vide";
+        Jeu.imageFin = pasPop;
+                Jeu.loseMsg = "Tout le monde est mort";
         Debug.Log("Jauge2 vide");
     }
 }

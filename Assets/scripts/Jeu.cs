@@ -29,6 +29,7 @@ public class Jeu : MonoBehaviour
     private bool running, rotation;
 
     public static string loseMsg;
+    public static Sprite imageFin;
     public static bool win, lose;
 
     public void Restart()
@@ -165,9 +166,11 @@ public class Jeu : MonoBehaviour
                     {
                         PlayerPrefs.SetInt("currentCard", 0);
                         PlayerPrefs.SetInt("lose", 1);
+                        cartes[0].cartes(0, 0, 0, 0, 0, 0, 0, 0,
+                        loseMsg,
+                        "terminer", "terminer", true, imageFin);
                         chooseCarte(0);
                         //Debug.Log(loseMsg);
-                        carte.descrip.text = loseMsg;
                         //carte.descrip.text = loseMsg;
                     }
                     else
