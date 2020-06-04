@@ -1,4 +1,41 @@
-Séance 5 mai :
+10 avril:
+Mis en place du git pour le groupe
+
+16 avril: 
+Premier version jouable: les jauges bougent, les cartes apparaissent et le tactile fonctionne. Pas d'animation
+
+20 avril:
+Début des animations de transitions 
+Problème rencontré: certaines actions commencent alors que l'animation n'est pas terminée
+Solution apportée: Nous avons décidé de coder nous même les animations plutôt que d'utiliser l'assistance d'unity.
+
+24 avril:
+Plus de soucis d'animation de transition,
+quelques amélioration de code animation de jauges, menu et sauvegarde
+
+26 avril: 
+Menu plus poussé, le temps s'incrémente quand on change de carte et les dimensions aussi à chaque nouvelles parties
+
+1 mai:
+Apport de la partie graphique : changement des logos, déplacement des éléments dans le menu
+
+2 mai: 
+Ajout de nouvelles carte: on crée une classe par carte héritant d'une classe mère Carte  
+
+5 mai :
 Premier compte rendu oral avec le professeur. 
 Problème lié aux classes filles de Carte: Chaque classe fille correspond à une carte ---> redondance de code.
-Solution : On part de la classe mère et en paramètre on précise les jauges modifiées par le choix de la carte. 
+Solution : On part de la classe mère et en paramètre on précise les jauges modifiées par le choix de la carte.
+
+13 mai : 
+Ajout des musiques et des graphismes de jauges 
+Illustration des morts technologiques et populations
+Désormais un choix fait sur une carte peut débloquer une nouvelle carte qui découle de ce choix:
+	- pour ce faire : création d'un attribut entier carte.suivante qui définit l'indice de la carte suivante
+
+18 mai : 
+Réglage UI 
+
+22 mai : Illustration jauge ajout musique, version playstore: 
+	problème rencontré: produire une version compatible playstore
+	solution apportée: coché simplement dans unity pour l'adapter :')
